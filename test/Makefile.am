@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.14 2003/03/30 12:52:40 rleigh Exp $
+## $Id: Makefile.am,v 1.39 2003/03/30 12:52:40 rleigh Exp $
 ## Copyright (C) 2000 Roger Leigh
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -28,20 +28,46 @@ include $(top_srcdir)/scripts/global.mk
 
 ## Variables
 
-LOCAL_CFLAGS = $(GNUCFLAGS) $(GIMPPRINT_CFLAGS)
+INCLUDES = -I$(top_srcdir)/src/main $(GIMPPRINT_CFLAGS)
+
+TESTS = curve run-testdither run-weavetest
 
 
 ## Programs
 
-if BUILD_XMLDEF
-noinst_PROGRAMS = xmldef
+if BUILD_TEST
+noinst_PROGRAMS = testdither escp2-weavetest unprint pcl-unprint bjc-unprint curve xml-curve
 endif
 
-xmldef_SOURCES = printdef.c
-xmldef_LDADD = @LIBXML_LIBS@
+escp2_weavetest_SOURCES = escp2-weavetest.c
+escp2_weavetest_LDADD = $(LIBPRINTUT) $(GIMPPRINT_LIBS)
 
+unprint_SOURCES = unprint.c
+unprint_LDADD = $(LIBPRINTUT)
+
+curve_SOURCES = curve.c
+curve_LDADD = $(GIMPPRINT_LIBS)
+
+pcl_unprint_SOURCES = pcl-unprint.c
+pcl_unprint_LDADD = $(LIBPRINTUT)
+
+bjc_unprint_SOURCES = bjc-unprint.c
+bjc_unprint_LDADD = $(LIBPRINTUT)
+
+testdither_SOURCES = testdither.c
+testdither_LDADD = $(LIBPRINTUT) $(GIMPPRINT_LIBS)
+
+xml_curve_SOURCES = xml-curve.c
+xml_curve_LDADD = $(LIBPRINTUT) $(GIMPPRINT_LIBS)
+
+## Rules
+
+#run-weavetest: escp2-weavetest
 
 
 ## Clean
 
+CLEANFILES = mixed-color-1bit.ppm
 MAINTAINERCLEANFILES = Makefile.in
+
+EXTRA_DIST = cyan-sweep.tif parse-escp2 run-weavetest run-testdither
