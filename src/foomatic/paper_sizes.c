@@ -1,10 +1,9 @@
 /*
- * "$Id: papers.h,v 1.8 2003/02/22 17:20:21 rlk Exp $"
+ * "$Id: paper_sizes.c,v 1.6 2003/02/22 17:20:16 rlk Exp $"
  *
- *   libgimpprint header.
+ *   Dump the per-printer options for Grant Taylor's *-omatic database
  *
- *   Copyright 1997-2000 Michael Sweet (mike@easysw.com) and
- *	Robert Krawitz (rlk@alum.mit.edu)
+ *   Copyright 2000 Robert Krawitz (rlk@alum.mit.edu)
  *
  *   This program is free software; you can redistribute it and/or modify it
  *   under the terms of the GNU General Public License as published by the Free
@@ -19,38 +18,29 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, write to the Free Software
  *   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *
- * Revision History:
- *
- *   See ChangeLog
  */
-
-/*
- * This file must include only standard C header files.  The core code must
- * compile on generic platforms that don't support glib, gimp, gtk, etc.
- */
-
-#ifndef GIMP_PRINT_INTERNAL_PAPERS_H
-#define GIMP_PRINT_INTERNAL_PAPERS_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-
-extern int stpi_paper_list_init(void);
-
-extern int stpi_paper_create(stp_papersize_t *pt);
-extern int stpi_paper_destroy(stp_papersize_t *pt);
-
-#ifdef __cplusplus
-  }
+#include <stdio.h>
+#ifdef INCLUDE_GIMP_PRINT_H
+#include INCLUDE_GIMP_PRINT_H
+#else
+#include <gimp-print/gimp-print.h>
 #endif
+#include "../../lib/libprintut.h"
 
-#endif /* GIMP_PRINT_INTERNAL_PAPERS_H */
-/*
- * End of "$Id: papers.h,v 1.8 2003/02/22 17:20:21 rlk Exp $".
- */
+int
+main(int argc, char **argv)
+{
+  int i;
+
+  stp_init();
+  for (i = 0; i < stp_known_papersizes(); i++)
+    {
+      const stp_papersize_t *p = stp_get_papersize_by_index(i);
+      printf("%s %d %d\n", p->name, p->width, p->height);
+    }
+  return 0;
+}
