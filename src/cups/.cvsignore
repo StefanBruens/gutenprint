@@ -1,0 +1,16 @@
+.deps
+.libs
+Makefile
+Makefile.in
+canon
+commandtocanon
+commandtoepson
+cups-calibrate
+cups-genppd
+cups-genppdconfig
+cups-genppdupdate
+epson
+genppd
+ppd
+rastertoprinter
+ppd-stamp
