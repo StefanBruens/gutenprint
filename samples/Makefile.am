@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.19 2005/11/21 11:16:22 rleigh Exp $
+## $Id: Makefile.am,v 1.6 2005/11/21 11:16:22 rleigh Exp $
 ## Copyright (C) 2000 Roger Leigh
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -21,19 +21,21 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = 					\
-	main					\
-	gutenprintui				\
-	gutenprintui2			\
-	escputil				\
-	gimp					\
-	gimp2					\
-	cups					\
-	foomatic				\
-	ghost					\
-	testpattern
+
+## Variables
+
+pkgsampledatadir = $(datadir)/$(PACKAGE)/samples
+
+
+## Data
+
+if INSTALL_SAMPLES
+pkgsampledata_DATA = colorbars4.png colorsweep.png profile.jpg
+endif
 
 
 ## Clean
 
 MAINTAINERCLEANFILES = Makefile.in
+
+EXTRA_DIST = $(pkgsampledata_DATA)
