@@ -1,5 +1,5 @@
 /*
- * "$Id: print-util.c,v 1.120 2014/01/13 02:59:14 rlk Exp $"
+ * "$Id: print-util.c,v 1.121 2015/04/11 16:19:46 rlk Exp $"
  *
  *   Print plug-in driver utility functions for the GIMP.
  *
@@ -64,9 +64,9 @@ typedef struct
 
 #define STPI_VASPRINTF(result, bytes, format)				\
 {									\
-  int current_allocation = 64;						\
+  int current_allocation = 64; /* vsnprintf returns int */		\
   result = stp_malloc(current_allocation);				\
-  while (1)								\
+  while (current_allocation < INT_MAX / 2)				\
     {									\
       va_list args;							\
       va_start(args, format);						\
