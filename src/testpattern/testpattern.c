@@ -1,5 +1,5 @@
 /*
- * "$Id: testpattern.c,v 1.64 2014/05/17 21:56:46 rlk Exp $"
+ * "$Id: testpattern.c,v 1.65 2015/04/11 20:35:42 rlk Exp $"
  *
  *   Test pattern generator for Gutenprint
  *
@@ -623,7 +623,7 @@ fill_black_##bits(unsigned char *data, size_t len, size_t scount)	\
 	  memset(s_data, 0, sizeof(T) * 3);				\
 	  s_data += 3;							\
 	}								\
-      memset(s_data, 0xff, sizeof(T) * extra * 3);			\
+      memset(s_data, 0, sizeof(T) * extra * 3);				\
     }									\
   else if (strcmp(global_image_type, "CMY") == 0)			\
     {									\
